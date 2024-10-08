@@ -1,0 +1,4 @@
+[core]
+    remote = local_remote
+['remote "local_remote"']
+    url = C:\tmp_cases\DEV\mlops\MLOps\MNA-MLOps-\MNA_MLOps_Eq34\notebooks

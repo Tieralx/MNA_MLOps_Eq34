@@ -159,4 +159,5 @@ def main(filepath):
     cross_validate_model(trained_model, data_pca.drop('y', axis=1), data_pca['y'])
 
 #Execute
-main(r".\data\raw\sobar-72.csv")
+if __name__ == '__main__':
+    main(r"..\data\raw\sobar-72.csv")

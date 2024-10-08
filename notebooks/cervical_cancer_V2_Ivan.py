@@ -113,7 +113,7 @@ class CervicalCancerModel:
         y_pred = self.model_pipeline.predict(self.X_test)
         cm = confusion_matrix(self.y_test, y_pred)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm)
-        disp.plot(cmap='Blues')
+        disp.plot(cmap='Blues', colorbar = False)
         plt.show()
 
         report = classification_report(self.y_test, y_pred)
