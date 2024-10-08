@@ -1,0 +1,43 @@
+base: 
+  random_state: 42
+  pandas_display.max_rows: 500
+  pandas_display.max_columns: 500
+  pandas_display.width: 1000
+
+
+data:
+  #load data
+  target_column: 'ca_cervix'
+
+preprocessing:
+  outlier_rem_Log_columns_threshold: -1
+  outliers_rem_sqrt_colums_lower_threshold: -1 
+  outliers_rem_sqrt_colums_higer_threshold: -0.5
+  PCA_threshold: 0.90
+
+data_split:
+  test_size: 0.3
+  val_size: 0.5
+  shuffle: True
+
+
+
+train:
+  #train hyperparameters
+  solver: 'liblinear'
+  multi_class: 'ovr'
+
+reports:
+  #metrics, images
+
+  #color map
+  cmap: 'viridis'
+
+  #Clasification report
+  Clasification_report_target_names: ['without cervical cancer', 'with cervical cancer'] 
+  Clasification_report_zero_division: 0.0 
+  Clasification_report_output_dict: True
+
+  #Confusion matrix
+  colorbar:  False 
+  
