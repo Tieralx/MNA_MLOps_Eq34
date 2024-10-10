@@ -27,7 +27,7 @@ class DataExplorer:
     @staticmethod
     def plot_correlation_matrix(data):
         plt.figure(figsize=(12, 8))
-        sns.heatmap(data.corr(), annot=True, fmt=".2f", cmap='coolwarm')
+        sns.heatmap(data.corr(), annot=True, fmt=".2f", cmap='viridis')
         plt.show()
     
     @staticmethod
@@ -86,7 +86,7 @@ class preprocess_data:
         print("Aplicando operación: PCA")
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(self.drop(columns=[target]))  # Excluir la variable objetivo
-        # Aplicar PCA
+        # Aplicar PCAA
         pca = PCA().fit(X_scaled)
         # Calcular la varianza explicada acumulada
         explained_variance = np.cumsum(pca.explained_variance_ratio_)
@@ -97,6 +97,11 @@ class preprocess_data:
         df_pca = pd.DataFrame(X_pca, columns=pca_columns)
         df_pca['y'] = self[target].values
         return df_pca
+    
+    @staticmethod
+    def save_processed_dataset(self):
+        self.to_csv(r"MNA_MLOps_Eq34\data\processed\cervical_cancer_processed.csv", index=False)
+    
 
 
 
@@ -105,7 +110,7 @@ class cervical_cancer_model:
         self.filepath = filepath
         self.model_pipeline = Pipeline(
             [
-           
+             ('scaler', StandardScaler()),
              ('regressor', LogisticRegression(random_state= 10, solver = 'liblinear', multi_class='ovr'))   
             ])
         self.X_train, self.X_test, self.y_train, self.y_test = [None] * 4
@@ -113,6 +118,9 @@ class cervical_cancer_model:
     def load_data(self):
         df = pd.read_csv(self.filepath)
         DataExplorer.explore_data(df)
+        DataExplorer.plot_histograms(df)
+        DataExplorer.plot_feature_relationships(df, 'ca_cervix')
+        DataExplorer.plot_correlation_matrix(df)
         self.data = df
         return self
     
@@ -120,8 +128,9 @@ class cervical_cancer_model:
         del_outliers = preprocess_data.delete_outliers(self.data)
         normalized = preprocess_data.normalization(del_outliers)
         applied_pca = preprocess_data.aplicar_pca(normalized,'ca_cervix',0.9)
+        preprocess_data.save_processed_dataset(applied_pca)
         X = applied_pca.drop('y', axis=1)
-        y = applied_pca['y']       
+        y = applied_pca['y']
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size=0.3, random_state=42)
         return self
     
@@ -134,10 +143,11 @@ class cervical_cancer_model:
         y_pred = self.model_pipeline.predict(self.X_test)
         cm = confusion_matrix(self.y_test, y_pred)
         disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=np.unique(self.y_test))
-        disp.plot(cmap='Blues', colorbar=False)
+        disp.plot(cmap='viridis', colorbar=False)
         plt.show()
         
-        report = classification_report(self.y_test, y_pred)
+        target_names = ['without cervical cancer', 'with cervical cancer']
+        report = classification_report(self.y_test, y_pred, target_names=target_names, zero_division=0.0)
         print("Classification Report:")
         print(report)
         return self
@@ -147,14 +157,16 @@ class cervical_cancer_model:
         print("Average Accuracy with CV:", np.mean(scores))
         return self
     
+   
+# Función principal para ejecutar el pipeline
 def main():
-    filepath=r'MNA_MLOps_Eq34\data\raw\sobar-72.csv'
-    model =cervical_cancer_model(filepath)
+    filepath = 'sobar-72.csv'
+    model = cervical_cancer_model(filepath)
     (model.load_data()
-          .preprocess_pipe()
-          .train_model()
-          .evaluate_model()
-          .cross_validate_model())
+          .preprocess_pipe()  # Aqui se eliminan outliers y se normaliza el dataset completo antes del split
+          .train_model()  # Entrenar el modelo usando el pipeline que incluye escalado y PCA
+          .evaluate_model()  
+          .cross_validate_model())  
 
 if __name__ == '__main__':
     main()
