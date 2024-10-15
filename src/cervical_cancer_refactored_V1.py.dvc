@@ -1,0 +1,5 @@
+outs:
+- md5: 3475317b45f6350c8d12d09a658a9f63
+  size: 6612
+  hash: md5
+  path: cervical_cancer_refactored_V1.py

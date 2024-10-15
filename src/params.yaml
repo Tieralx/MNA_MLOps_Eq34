@@ -7,6 +7,7 @@ base:
 
 data:
   #load data
+  file_path: 'sobar-72.csv'
   target_column: 'ca_cervix'
 
 preprocessing:
@@ -19,13 +20,22 @@ data_split:
   test_size: 0.3
   val_size: 0.5
   shuffle: True
+  random_state: 4
 
+mlflow_config:
+  uri: "http://localhost:5000"
+  experiment_name: "cervical_cancer"
+  model_name: "cervical_cancer_logistic_regressor"
+  model_artifact_path: "sklearn-model"
 
 
 train:
   #train hyperparameters
-  solver: 'liblinear'
-  multi_class: 'ovr'
+  solver: 'newton-cg'
+  multi_class: 'auto'
+  random_state: 10
+  max_iter: 1000
+
 
 reports:
   #metrics, images
@@ -34,10 +44,13 @@ reports:
   cmap: 'viridis'
 
   #Clasification report
-  Clasification_report_target_names: ['without cervical cancer', 'with cervical cancer'] 
-  Clasification_report_zero_division: 0.0 
-  Clasification_report_output_dict: True
+  target_names: ['without cervical cancer', 'with cervical cancer']
+  clasification_report_zero_division: 0.0 
+  clasification_report_output_dict: True
 
   #Confusion matrix
   colorbar:  False 
+
+  #cross_validation
+  cv: 5
   
