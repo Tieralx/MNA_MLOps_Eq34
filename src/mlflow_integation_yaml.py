@@ -84,19 +84,19 @@ class CervicalCancerModel:
                 # Registrar los parámetros de la combinación actual
                 mlflow.log_params(cv_results['params'][i])
                 # Registrar la métrica media de validación cruzada (accuracy)
-                mlflow.log_metric(str(run_name) + " mean_test_score", cv_results['mean_test_score'][i])
+                mlflow.log_metric("mean_test_score", cv_results['mean_test_score'][i])
                 # Registrar otras métricas opcionales si es necesario
-                mlflow.log_metric(str(run_name) + " std_test_score", cv_results['std_test_score'][i])
+                mlflow.log_metric("std_test_score", cv_results['std_test_score'][i])
 
                 # Predecir con el modelo actual y registrar métricas adicionales
                 y_pred = grid_search.best_estimator_.predict(self.X_test)
                 report = classification_report(self.y_test, y_pred, target_names=config_params["reports"]["target_names"],
                                                zero_division=config_params["reports"]["clasification_report_zero_division"],
                                                output_dict=config_params["reports"]["clasification_report_output_dict"])
-                mlflow.log_metric(" Accuracy", report['accuracy'])
-                mlflow.log_metric(str(run_name) + " Precision", report['macro avg']['precision'])
-                mlflow.log_metric(str(run_name) + " Recall", report['macro avg']['recall'])
-                mlflow.log_metric(str(run_name) + " F1 score", report['macro avg']['f1-score'])
+                mlflow.log_metric("Accuracy", report['accuracy'])
+                mlflow.log_metric("Precision", report['macro avg']['precision'])
+                mlflow.log_metric("Recall", report['macro avg']['recall'])
+                mlflow.log_metric("F1 score", report['macro avg']['f1-score'])
 
         # Obtener el mejor modelo y sus parámetros
         best_model = grid_search.best_estimator_
@@ -113,8 +113,8 @@ class CervicalCancerModel:
 
         # Registrar accuracy
         accuracy = accuracy_score(self.y_test, y_pred)
-        mlflow.log_metric("accuracy", accuracy)
-        print(f"Accuracy: {accuracy}")
+        #mlflow.log_metric("accuracy", accuracy)
+        print(f"Best model Accuracy: {accuracy}")
 
         print("Classification Report:")
         report = classification_report(self.y_test, y_pred, target_names=config_params["reports"]["target_names"],
