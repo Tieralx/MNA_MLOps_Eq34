@@ -1,0 +1,6 @@
+/lr_evaluation.txt
+/lr_pred.csv
+/clf_evaluation.txt
+/clf_pred.csv
+/xgb_evaluation.txt
+/xgb_pred.csv
