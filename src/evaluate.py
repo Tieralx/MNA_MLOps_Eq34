@@ -57,7 +57,7 @@ def write_evaluation_report(file_path, report, confusion_matrix, model_type):
     mlflow.log_metric("F1-score", report['macro avg']['f1-score'])
   
      
-    
+     
     
 
 if __name__ == '__main__':
