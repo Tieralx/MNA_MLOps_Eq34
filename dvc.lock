@@ -223,7 +223,7 @@ stages:
       size: 103
   train:
     cmd: python src\train.py src\params.yaml data\processed\X_train.csv data\processed\y_train.csv
-      lr
+      xgb
     deps:
     - path: data\processed\X_train.csv
       hash: md5
@@ -256,13 +256,13 @@ stages:
         train_xgb.n_estimators: 10
         train_xgb.objective: binary:logistic
     outs:
-    - path: models\lr_model.pkl
+    - path: models\xgb_model.pkl
       hash: md5
-      md5: 2c2479dcc33adc55633e477905a98d10
-      size: 1855
+      md5: cb561dfc22740b583646b6912c367a2a
+      size: 13366
   evaluate:
-    cmd: python src\evaluate.py models\lr_model.pkl data\processed\X_test.csv data\processed\y_test.csv
-      reports\lr_evaluation.txt reports\lr_pred.csv src\params.yaml lr
+    cmd: python src\evaluate.py models\xgb_model.pkl data\processed\X_test.csv data\processed\y_test.csv
+      reports\xgb_evaluation.txt reports\xgb_pred.csv src\params.yaml xgb
     deps:
     - path: data\processed\X_test.csv
       hash: md5
@@ -272,24 +272,24 @@ stages:
       hash: md5
       md5: 9aa504b8f958cdd615cb98fb3b7eb355
       size: 65
-    - path: models\lr_model.pkl
+    - path: models\xgb_model.pkl
       hash: md5
-      md5: 2c2479dcc33adc55633e477905a98d10
-      size: 1855
+      md5: cb561dfc22740b583646b6912c367a2a
+      size: 13366
     - path: src\evaluate.py
       hash: md5
       md5: 3614b0202a39ffe5ac90be5e83cf0a54
       size: 3510
     outs:
-    - path: metrics\lr_metrics.json
+    - path: metrics\xgb_metrics.json
       hash: md5
-      md5: 48eddc62f82c46aac5900606deed91cc
-      size: 136
-    - path: reports\lr_evaluation.txt
+      md5: 615d7a3f361b33878767f7c7fc8e66a4
+      size: 165
+    - path: reports\xgb_evaluation.txt
       hash: md5
-      md5: 81bc6025f1133739902e05a44cd8cd28
-      size: 490
-    - path: reports\lr_pred.csv
+      md5: 5cb074e6092a25211e2052c85628c5fa
+      size: 518
+    - path: reports\xgb_pred.csv
       hash: md5
-      md5: 206c8a7c37be84c7198e81fa8ff33276
+      md5: 91172b1fcc515ca1088c3bedac6920e9
       size: 103
