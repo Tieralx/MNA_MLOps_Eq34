@@ -6,7 +6,7 @@ data:
   reports: reports\
   plots: dvclive\plots\
   metrics: metrics\
-  mod: clf
+  mod: xgb
 
 train_lr:
   solver: newton-cholesky
@@ -15,13 +15,13 @@ train_lr:
   penalty: l2
 train_clf:
   criterion: log_loss
-  max_depth: 100
+  max_depth: 10
   splitter: best
 train_xgb:
   objective: binary:logistic
   eval_metric: logloss
-  max_depth: 10
-  learning_rate: 0.1
+  max_depth: 100
+  learning_rate: 0.001
   n_estimators: 10
 
 
