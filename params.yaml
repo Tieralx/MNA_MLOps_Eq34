@@ -6,7 +6,7 @@ data:
   reports: reports\
   plots: dvclive\plots\
   metrics: metrics\
-  mod: lr
+  mod: clf
 
 train_lr:
   solver: newton-cholesky
