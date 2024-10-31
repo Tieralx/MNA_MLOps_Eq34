@@ -55,6 +55,12 @@ def write_evaluation_report(file_path, report, confusion_matrix, model_type):
     mlflow.log_metric("precision", report['macro avg']['precision'])
     mlflow.log_metric("recall", report['macro avg']['recall'])
     mlflow.log_metric("F1-score", report['macro avg']['f1-score'])
+    with Live() as live:
+        live.log_metric("accuracy", report['accuracy'])
+        live.log_metric("precision", report['macro avg']['precision'])
+        live.log_metric("recall", report['macro avg']['recall'])
+        live.log_metric("F1-score", report['macro avg']['f1-score'])
+        
   
      
      

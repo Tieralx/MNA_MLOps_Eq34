@@ -1,7 +1,5 @@
 params:
 - params.yaml
-- dvclive/params.yaml
-
 stages:
   load_data:
     cmd: python ${data.srcpath}data_load.py ${data.filepath} ${data.processed}train_test_data.csv
@@ -26,48 +24,53 @@ stages:
     - ${data.processed}y_test.csv
 
   train:
-    matrix:
-      model: [lr, clf, xgb]
+    #matrix:
+    #  model: [lr, clf, xgb]
 
     cmd: python ${data.srcpath}train.py ${data.srcpath}params.yaml ${data.processed}X_train.csv
-      ${data.processed}y_train.csv  ${item.model}
+      ${data.processed}y_train.csv ${data.mod}
     deps:
     - ${data.srcpath}train.py
     - ${data.processed}X_train.csv
     - ${data.processed}y_train.csv
     - ${data.srcpath}params.yaml
+    params:
+    - train_lr.solver
+    - train_lr.C
+    - train_lr.max_iter
+    - train_lr.penalty
+    - train_clf.criterion
+    - train_clf.max_depth
+    - train_clf.splitter
+    - train_xgb.objective
+    - train_xgb.eval_metric
+    - train_xgb.max_depth
+    - train_xgb.learning_rate
+    - train_xgb.n_estimators
     outs:
-    - ${data.models}${key}_model.pkl
+    - ${data.models}${data.mod}_model.pkl
+
 
   evaluate:
-    matrix:
-      model: [lr, clf, xgb]
-    cmd: python ${data.srcpath}evaluate.py ${data.models}${item.model}_model.pkl ${data.processed}X_test.csv ${data.processed}y_test.csv ${data.reports}${item.model}_evaluation.txt ${data.reports}${item.model}_pred.csv 
-         ${data.srcpath}params.yaml ${item.model}
-      
+    #matrix:
+    #  model: [lr, clf, xgb]
+    cmd: python ${data.srcpath}evaluate.py ${data.models}${data.mod}_model.pkl ${data.processed}X_test.csv
+      ${data.processed}y_test.csv ${data.reports}${data.mod}_evaluation.txt ${data.reports}${data.mod}_pred.csv
+      ${data.srcpath}params.yaml ${data.mod}
+
     deps:
     - ${data.srcpath}evaluate.py
-    - ${data.models}${key}_model.pkl
+    - ${data.models}${data.mod}_model.pkl
     - ${data.processed}X_test.csv
     - ${data.processed}y_test.csv
     outs:
-    - ${data.reports}${key}_evaluation.txt
-    - ${data.reports}${key}_pred.csv
+    - ${data.reports}${data.mod}_evaluation.txt
+    - ${data.reports}${data.mod}_pred.csv
     metrics:
-    - ${data.metrics}${key}_metrics.json
-
-
-
-
+    - ${data.metrics}${data.mod}_metrics.json:
+        cache: true
+metrics:
+- dvclive/metrics.json
 plots:
-- 0 vs ca_cervix:
-    template: confusion
-    x: "0\r"
-    y:
-      reports\lr_pred.csv: ca_cervix
-- 0 vs ca_cervix:
-      template: confusion
-      x: "0\r"
-      y:
-          reports\xgb_pred.csv: ca_cervix
-
+- dvclive/plots/metrics:
+    x: step

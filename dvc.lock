@@ -221,3 +221,75 @@ stages:
       hash: md5
       md5: 91172b1fcc515ca1088c3bedac6920e9
       size: 103
+  train:
+    cmd: python src\train.py src\params.yaml data\processed\X_train.csv data\processed\y_train.csv
+      clf
+    deps:
+    - path: data\processed\X_train.csv
+      hash: md5
+      md5: 0665a243a07d8f147a89e8656520e7a4
+      size: 7350
+    - path: data\processed\y_train.csv
+      hash: md5
+      md5: 7b915b09ce8a9a98b2f392cc6c933367
+      size: 134
+    - path: src\params.yaml
+      hash: md5
+      md5: dc3731e8f4e18b2d1a158b9a0dd241b2
+      size: 2387
+    - path: src\train.py
+      hash: md5
+      md5: bb04030c3b38a9eb7665c8ad03551e96
+      size: 2416
+    params:
+      params.yaml:
+        train_clf.criterion: log_loss
+        train_clf.max_depth: 100
+        train_clf.splitter: best
+        train_lr.C: 0.01
+        train_lr.max_iter: 500
+        train_lr.penalty: l2
+        train_lr.solver: newton-cholesky
+        train_xgb.eval_metric: logloss
+        train_xgb.learning_rate: 0.1
+        train_xgb.max_depth: 10
+        train_xgb.n_estimators: 10
+        train_xgb.objective: binary:logistic
+    outs:
+    - path: models\clf_model.pkl
+      hash: md5
+      md5: 5e69a390e8ba81932b66be647a06062c
+      size: 2809
+  evaluate:
+    cmd: python src\evaluate.py models\clf_model.pkl data\processed\X_test.csv data\processed\y_test.csv
+      reports\clf_evaluation.txt reports\clf_pred.csv src\params.yaml clf
+    deps:
+    - path: data\processed\X_test.csv
+      hash: md5
+      md5: 9b456f8d3b4c2bb2b370a01ba927132c
+      size: 3466
+    - path: data\processed\y_test.csv
+      hash: md5
+      md5: 9aa504b8f958cdd615cb98fb3b7eb355
+      size: 65
+    - path: models\clf_model.pkl
+      hash: md5
+      md5: 5e69a390e8ba81932b66be647a06062c
+      size: 2809
+    - path: src\evaluate.py
+      hash: md5
+      md5: 3614b0202a39ffe5ac90be5e83cf0a54
+      size: 3510
+    outs:
+    - path: metrics\clf_metrics.json
+      hash: md5
+      md5: 60edbaafefd683883f5fef52704f77c0
+      size: 165
+    - path: reports\clf_evaluation.txt
+      hash: md5
+      md5: 5cb074e6092a25211e2052c85628c5fa
+      size: 518
+    - path: reports\clf_pred.csv
+      hash: md5
+      md5: 91172b1fcc515ca1088c3bedac6920e9
+      size: 103

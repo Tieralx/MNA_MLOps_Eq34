@@ -1,9 +1,28 @@
 data:
-  srcpath:   src\
-  filepath:  data\raw\sobar-72.csv
+  srcpath: src\
+  filepath: data\raw\sobar-72.csv
   processed: data\processed\
-  models:    models\
-  reports:   reports\
-  plots:     dvclive\plots\
-  metrics:   metrics\
-  
+  models: models\
+  reports: reports\
+  plots: dvclive\plots\
+  metrics: metrics\
+  mod: clf
+
+train_lr:
+  solver: newton-cholesky
+  C: 0.01  # Regularization parameter for Logistic Regression
+  max_iter: 500  # Number of iterations
+  penalty: l2
+train_clf:
+  criterion: log_loss
+  max_depth: 100
+  splitter: best
+train_xgb:
+  objective: binary:logistic
+  eval_metric: logloss
+  max_depth: 10
+  learning_rate: 0.1
+  n_estimators: 10
+
+
+
