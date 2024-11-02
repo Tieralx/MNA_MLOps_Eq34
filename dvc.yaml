@@ -1,5 +1,6 @@
 params:
 - params.yaml
+- dvclive/params.yaml
 stages:
   load_data:
     cmd: python ${data.srcpath}data_load.py ${data.filepath} ${data.processed}train_test_data.csv
@@ -66,11 +67,8 @@ stages:
     outs:
     - ${data.reports}${data.mod}_evaluation.txt
     - ${data.reports}${data.mod}_pred.csv
+    #- ${data.metrics}${data.mod}_metrics.json
+
     metrics:
     - ${data.metrics}${data.mod}_metrics.json:
         cache: true
-metrics:
-- dvclive/metrics.json
-plots:
-- dvclive/plots/metrics:
-    x: step

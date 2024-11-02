@@ -1,0 +1,5 @@
+xgb_objective: binary:logistic
+xgb_eval_metric: logloss
+xgb_max_depth: 10
+xgb_learning_rate: 0.1
+xgb_n_estimators: 10
