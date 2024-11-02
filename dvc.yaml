@@ -1,6 +1,5 @@
 params:
 - params.yaml
-- dvclive/params.yaml
 stages:
   load_data:
     cmd: python ${data.srcpath}data_load.py ${data.filepath} ${data.processed}train_test_data.csv
@@ -72,3 +71,36 @@ stages:
     metrics:
     - ${data.metrics}${data.mod}_metrics.json:
         cache: true
+metrics:
+- dvclive/metrics.json
+plots:
+- dvclive/plots/metrics:
+    x: step
+- dvclive/plots/sklearn/roc.json:
+    template: simple
+    x: fpr
+    y: tpr
+    title: Receiver operating characteristic (ROC)
+    x_label: False Positive Rate
+    y_label: True Positive Rate
+- dvclive/plots/sklearn/precision_recall.json:
+    template: simple
+    x: recall
+    y: precision
+    title: Precision-Recall Curve
+    x_label: Recall
+    y_label: Precision
+- dvclive/plots/sklearn/det.json:
+    template: simple
+    x: fpr
+    y: fnr
+    title: Detection error tradeoff (DET)
+    x_label: False Positive Rate
+    y_label: False Negative Rate
+- dvclive/plots/sklearn/calibration.json:
+    template: simple
+    x: prob_pred
+    y: prob_true
+    title: Calibration Curve
+    x_label: Mean Predicted Probability
+    y_label: Fraction of Positives
