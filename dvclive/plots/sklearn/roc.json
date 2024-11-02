@@ -6,14 +6,9 @@
             "threshold": Infinity
         },
         {
-            "fpr": 0.0,
-            "tpr": 0.25,
-            "threshold": 1.0
-        },
-        {
             "fpr": 1.0,
             "tpr": 1.0,
-            "threshold": 0.0
+            "threshold": 0.5
         }
     ]
 }
