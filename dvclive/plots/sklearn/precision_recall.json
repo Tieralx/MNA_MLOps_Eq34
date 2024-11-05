@@ -3,7 +3,12 @@
         {
             "precision": 0.2222222222222222,
             "recall": 1.0,
-            "threshold": 0.5
+            "threshold": 0.0
+        },
+        {
+            "precision": 1.0,
+            "recall": 0.25,
+            "threshold": 1.0
         }
     ]
 }

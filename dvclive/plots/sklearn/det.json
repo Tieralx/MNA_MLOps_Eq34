@@ -3,7 +3,12 @@
         {
             "fpr": 1.0,
             "fnr": 0.0,
-            "threshold": 0.5
+            "threshold": 0.0
+        },
+        {
+            "fpr": 0.0,
+            "fnr": 0.75,
+            "threshold": 1.0
         }
     ]
 }

@@ -1,8 +1,12 @@
 {
     "calibration": [
         {
-            "prob_true": 0.2222222222222222,
-            "prob_pred": 0.5
+            "prob_true": 0.17647058823529413,
+            "prob_pred": 0.0
+        },
+        {
+            "prob_true": 1.0,
+            "prob_pred": 1.0
         }
     ]
 }
