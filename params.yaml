@@ -6,22 +6,22 @@ data:
   reports: reports\
   plots: dvclive\plots\
   metrics: metrics\
-  mod: xgb
+  mod: clf
 
 train_lr:
-  solver: newton-cholesky
-  C: 0.01  # Regularization parameter for Logistic Regression
-  max_iter: 500  # Number of iterations
+  solver: liblinear
+  C: 0.1   # Regularization parameter for Logistic Regression
+  max_iter: 800  # Number of iterations
   penalty: l2
 train_clf:
-  criterion: log_loss
-  max_depth: 10
-  splitter: best
+  criterion: gini
+  max_depth: none
+  splitter: random
 train_xgb:
   objective: binary:logistic
   eval_metric: logloss
-  max_depth: 1000
-  learning_rate: 0.01
+  max_depth: 500
+  learning_rate: 0.001
   n_estimators: 10
 
 
