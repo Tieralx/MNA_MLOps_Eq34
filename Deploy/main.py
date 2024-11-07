@@ -12,7 +12,7 @@ with open("cervical_cancer_model.pkl", "rb") as f:
     model = pickle.load(f)
 
 # Load the target names (class labels)
-data = pd.read_csv("sobar-72.csv")
+data = pd.read_csv("sobar-72.csv") 
 #data = genfromtxt("sobar-72.csv",delimiter=',')
 target_names = ['ca_cervix']
 #feature_names = data.columns
