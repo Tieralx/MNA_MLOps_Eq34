@@ -5,7 +5,7 @@ from typing import List
 import pickle
 import pandas as pd
 import numpy as np
-from numpy import genfromtxt
+
 
 # Load the model
 with open("cervical_cancer_model.pkl", "rb") as f:

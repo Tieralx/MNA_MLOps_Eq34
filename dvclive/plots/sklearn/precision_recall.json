@@ -3,12 +3,92 @@
         {
             "precision": 0.2222222222222222,
             "recall": 1.0,
-            "threshold": 0.0
+            "threshold": 0.003504843756630233
+        },
+        {
+            "precision": 0.23529411764705882,
+            "recall": 1.0,
+            "threshold": 0.004214365132448817
+        },
+        {
+            "precision": 0.25,
+            "recall": 1.0,
+            "threshold": 0.0056272451122245225
+        },
+        {
+            "precision": 0.26666666666666666,
+            "recall": 1.0,
+            "threshold": 0.007098556978974621
+        },
+        {
+            "precision": 0.2857142857142857,
+            "recall": 1.0,
+            "threshold": 0.020967490778670904
+        },
+        {
+            "precision": 0.3076923076923077,
+            "recall": 1.0,
+            "threshold": 0.08506973637445985
+        },
+        {
+            "precision": 0.3333333333333333,
+            "recall": 1.0,
+            "threshold": 0.1041989994163475
+        },
+        {
+            "precision": 0.36363636363636365,
+            "recall": 1.0,
+            "threshold": 0.10636444725393748
+        },
+        {
+            "precision": 0.4,
+            "recall": 1.0,
+            "threshold": 0.15496921012768886
+        },
+        {
+            "precision": 0.4444444444444444,
+            "recall": 1.0,
+            "threshold": 0.2039307264213223
+        },
+        {
+            "precision": 0.375,
+            "recall": 0.75,
+            "threshold": 0.20423833230030738
+        },
+        {
+            "precision": 0.2857142857142857,
+            "recall": 0.5,
+            "threshold": 0.26470786063230994
+        },
+        {
+            "precision": 0.3333333333333333,
+            "recall": 0.5,
+            "threshold": 0.2798705341776468
+        },
+        {
+            "precision": 0.4,
+            "recall": 0.5,
+            "threshold": 0.33947110494170374
+        },
+        {
+            "precision": 0.5,
+            "recall": 0.5,
+            "threshold": 0.3673965502929414
+        },
+        {
+            "precision": 0.6666666666666666,
+            "recall": 0.5,
+            "threshold": 0.4343402611610828
+        },
+        {
+            "precision": 1.0,
+            "recall": 0.5,
+            "threshold": 0.6178707688160258
         },
         {
             "precision": 1.0,
             "recall": 0.25,
-            "threshold": 1.0
+            "threshold": 0.7668685874657133
         }
     ]
 }
