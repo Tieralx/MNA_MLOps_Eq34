@@ -11,3 +11,5 @@ pandas
 pip
 python-dotenv
 scikit-learn
+mlflow
+dvclive

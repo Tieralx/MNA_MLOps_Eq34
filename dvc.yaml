@@ -49,8 +49,6 @@ stages:
     - train_xgb.n_estimators
     outs:
     - ${data.models}${data.mod}_model.pkl
-    
-
 
 
   evaluate:

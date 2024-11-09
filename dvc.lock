@@ -1,52 +1,52 @@
 schema: '2.0'
 stages:
   load_data:
-    cmd: python src\data_load.py data\raw\sobar-72.csv data\processed\train_test_data.csv
+    cmd: python src/data_load.py data/raw/sobar-72.csv data/processed/train_test_data.csv
     deps:
-    - path: data\raw\sobar-72.csv
+    - path: data/raw/sobar-72.csv
       hash: md5
       md5: d863125714b702f87a54c0fe806c1c05
       size: 4102
-    - path: src\data_load.py
+    - path: src/data_load.py
       hash: md5
       md5: c1737bf96a778b71bafdaf4aed818db0
       size: 259
     outs:
-    - path: data\processed\train_test_data.csv
+    - path: data/processed/train_test_data.csv
       hash: md5
       md5: d863125714b702f87a54c0fe806c1c05
       size: 4102
   preprocess:
-    cmd: python src\preprocess.py data\processed\train_test_data.csv src\params.yaml
-      data\processed\X_train.csv data\processed\X_test.csv data\processed\y_train.csv
-      data\processed\y_test.csv
+    cmd: python src/preprocess.py data/processed/train_test_data.csv src/params.yaml
+      data/processed/X_train.csv data/processed/X_test.csv data/processed/y_train.csv
+      data/processed/y_test.csv
     deps:
-    - path: data\processed\train_test_data.csv
+    - path: data/processed/train_test_data.csv
       hash: md5
       md5: d863125714b702f87a54c0fe806c1c05
       size: 4102
-    - path: src\params.yaml
+    - path: src/params.yaml
       hash: md5
       md5: dc3731e8f4e18b2d1a158b9a0dd241b2
       size: 2387
-    - path: src\preprocess.py
+    - path: src/preprocess.py
       hash: md5
       md5: aa09db355e4b7deeca7cb22b997c376f
       size: 2520
     outs:
-    - path: data\processed\X_test.csv
+    - path: data/processed/X_test.csv
       hash: md5
       md5: 9b456f8d3b4c2bb2b370a01ba927132c
       size: 3466
-    - path: data\processed\X_train.csv
+    - path: data/processed/X_train.csv
       hash: md5
       md5: 0665a243a07d8f147a89e8656520e7a4
       size: 7350
-    - path: data\processed\y_test.csv
+    - path: data/processed/y_test.csv
       hash: md5
       md5: 9aa504b8f958cdd615cb98fb3b7eb355
       size: 65
-    - path: data\processed\y_train.csv
+    - path: data/processed/y_train.csv
       hash: md5
       md5: 7b915b09ce8a9a98b2f392cc6c933367
       size: 134
@@ -222,22 +222,22 @@ stages:
       md5: 91172b1fcc515ca1088c3bedac6920e9
       size: 103
   train:
-    cmd: python src\train.py src\params.yaml data\processed\X_train.csv data\processed\y_train.csv
+    cmd: python src/train.py src/params.yaml data/processed/X_train.csv data/processed/y_train.csv
       lr
     deps:
-    - path: data\processed\X_train.csv
+    - path: data/processed/X_train.csv
       hash: md5
       md5: 0665a243a07d8f147a89e8656520e7a4
       size: 7350
-    - path: data\processed\y_train.csv
+    - path: data/processed/y_train.csv
       hash: md5
       md5: 7b915b09ce8a9a98b2f392cc6c933367
       size: 134
-    - path: src\params.yaml
+    - path: src/params.yaml
       hash: md5
       md5: dc3731e8f4e18b2d1a158b9a0dd241b2
       size: 2387
-    - path: src\train.py
+    - path: src/train.py
       hash: md5
       md5: bb04030c3b38a9eb7665c8ad03551e96
       size: 2416
@@ -256,40 +256,40 @@ stages:
         train_xgb.n_estimators: 10
         train_xgb.objective: binary:logistic
     outs:
-    - path: models\lr_model.pkl
+    - path: models/lr_model.pkl
       hash: md5
       md5: 7a9e62bc8ec01cd335ff703e68f4edf4
       size: 1867
   evaluate:
-    cmd: python src\evaluate.py models\lr_model.pkl data\processed\X_test.csv data\processed\y_test.csv
-      reports\lr_evaluation.txt reports\lr_pred.csv src\params.yaml lr
+    cmd: python src/evaluate.py models/lr_model.pkl data/processed/X_test.csv data/processed/y_test.csv
+      reports/lr_evaluation.txt reports/lr_pred.csv src/params.yaml lr
     deps:
-    - path: data\processed\X_test.csv
+    - path: data/processed/X_test.csv
       hash: md5
       md5: 9b456f8d3b4c2bb2b370a01ba927132c
       size: 3466
-    - path: data\processed\y_test.csv
+    - path: data/processed/y_test.csv
       hash: md5
       md5: 9aa504b8f958cdd615cb98fb3b7eb355
       size: 65
-    - path: models\lr_model.pkl
+    - path: models/lr_model.pkl
       hash: md5
       md5: 7a9e62bc8ec01cd335ff703e68f4edf4
       size: 1867
-    - path: src\evaluate.py
+    - path: src/evaluate.py
       hash: md5
       md5: b71943ec3a75066302c31a9aa2d9d96d
       size: 4036
     outs:
-    - path: metrics\lr_metrics.json
+    - path: metrics/lr_metrics.json
       hash: md5
       md5: 48eddc62f82c46aac5900606deed91cc
       size: 136
-    - path: reports\lr_evaluation.txt
+    - path: reports/lr_evaluation.txt
       hash: md5
       md5: 81bc6025f1133739902e05a44cd8cd28
       size: 490
-    - path: reports\lr_pred.csv
+    - path: reports/lr_pred.csv
       hash: md5
       md5: 206c8a7c37be84c7198e81fa8ff33276
       size: 103

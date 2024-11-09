@@ -1,11 +1,11 @@
 data:
-  srcpath: src\
-  filepath: data\raw\sobar-72.csv
-  processed: data\processed\
-  models: models\
-  reports: reports\
-  plots: dvclive\plots\
-  metrics: metrics\
+  srcpath: src/
+  filepath: data/raw/sobar-72.csv
+  processed: data/processed/
+  models: models/
+  reports: reports/
+  plots: dvclive/plots/
+  metrics: metrics/
   mod: lr
 
 train_lr:

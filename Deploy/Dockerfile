@@ -1,12 +1,24 @@
+# Dockerfile
+FROM python:3.9-slim
 
-FROM python:3.10
-
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt .
+# Copy files to container
+COPY models\lr_model.pkl /app/
+COPY src\data_load.py /app/      
+COPY src\preprocess.py /app/ 
+COPY src\evaluate.py /app/   
+COPY main.py /app/
 
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies
+RUN pip install fastapi uvicorn scikit-learn pydantic dvc
 
-COPY . .
+# Instala las dependencias del proyecto
+RUN pip install -r requirements.txt
 
-CMD [ "python", "./app.py" ]
+# Expose port
+EXPOSE 8000
+
+# Start the FastAPI server
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "dvc", "repro"]
