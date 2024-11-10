@@ -2,9 +2,14 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import dvc.api
 import joblib  # or another model-loading library as needed
+import pickle
+
+with open("./models/lr_model.pkl", "rb") as f:
+    model = pickle.load(f)
 
 # Define input data model for the API
 class ca_cervix(BaseModel):
+    
     behavior_sexualRisk: int
     behavior_eating: int
     behavior_personalHygine: int
@@ -29,20 +34,43 @@ class ca_cervix(BaseModel):
 
 app = FastAPI()
 
+
+
 # Load model
-model_path = dvc.api.get_url("models\lr_model.pkl")
-model = joblib.load(model_path)
+#model_path = dvc.api.get_url("./models/lr_model.pkl")
+#model = joblib.load(model_path)
 
 @app.post("/predict")
-async def predict(data: ca_cervix):
+#async def predict(request: ca_cervix):
+
+#    print(request)
+async def predict(request: ca_cervix):
+    data = request.model_dump()
     # Run inference
-    input_data = [[data.behavior_sexualRisk, data.behavior_eating, data.behavior_personalHygine, data.intention_aggregation, data.intention_commitment, data.attitude_consistency, 
-        data.attitude_spontaneity, data.norm_significantPerson, data.norm_fulfillment, data.perception_vulnerability, data.perception_severity, data.motivation_strength, 
-        data.motivation_willingness, data.socialSupport_emotionality, data.socialSupport_appreciation, data.socialSupport_instrumental, data.empowerment_knowledge, 
-        data.empowerment_abilities, data.empowerment_desires
-        ]]  # Adapt as per your model's input requirements
+    #input_data =   # Adapt as per your model's input requirements
     try:
-        prediction = model.predict(input_data)
+        prediction = model.predict([data['behavior_sexualRisk'],
+                  data['behavior_eating'],
+                  data['behavior_personalHygine'],
+                  data['intention_aggregation'],
+                  data['intention_commitment'],
+                  data['attitude_consistency'],
+                  data['attitude_spontaneity'],
+                  data['norm_significantPerson'],
+                  data['norm_fulfillment'],
+                  data['perception_vulnerability'],
+                  data['perception_severity'],
+                  data['motivation_strength'],
+                  data['motivation_willingness'],
+                  data['socialSupport_emotionality'],
+                  data['socialSupport_appreciation'],
+                  data['socialSupport_instrumental'],
+                  data['empowerment_knowledge'],
+                  data['empowerment_abilities'],
+                  data['empowerment_desires']
+                  ])
+        
+        #return {"prediction": prediction}
         return {"prediction": prediction[0]}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
