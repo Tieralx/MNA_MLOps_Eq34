@@ -22,7 +22,7 @@ target_names = ['ca_cervix']
 # Define the input data format for prediction
 class cervicalcancer(BaseModel):
     
-    features: list[int]
+    features: List[int]
     
 # Initialize FastAPI
 app = FastAPI()

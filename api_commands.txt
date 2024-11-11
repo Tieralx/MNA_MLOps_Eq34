@@ -1,0 +1,31 @@
+#desde el directorio donde se encuentra el Dockerfile y app.py ejecutar:
+docker build -t ca_cervix-api .
+#una vez que se creo la imagen en docker, ejecutar:
+docker run -p 8005:8005 ca_cervix-api
+
+#En mi caso se tiene que correr en el puerto 8005 porque el 8000 estaba ocupado, si lo quieren cambiar
+se debe editar el Dockerfile
+
+#para la inferencia usando postman la direccion a usar es http://localhost:8005/predict, se debe seleccionar post,
+y en la seccion de Body, seleccionar raw en modo json, y el body debe ser en este formato:
+
+{"behavior_sexualRisk": "8",
+"behavior_eating": "12",
+"behavior_personalHygine": "9",
+"intention_aggregation": "10",
+"intention_commitment": "10",
+"attitude_consistency": "5",
+"attitude_spontaneity": "10",
+"norm_significantPerson": "5",
+"norm_fulfillment": "5",
+"perception_vulnerability": "5",
+"perception_severity": "2",
+"motivation_strength": "10",
+"motivation_willingness": "9",
+"socialSupport_emotionality": "13",
+"socialSupport_appreciation": "2",
+"socialSupport_instrumental": "9",
+"empowerment_knowledge": "8",
+"empowerment_abilities": "7",
+"empowerment_desires": "12"
+}
